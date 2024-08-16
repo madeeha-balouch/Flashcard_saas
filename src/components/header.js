@@ -6,10 +6,10 @@ export default async function Header() {
   const { userId } = auth();
 
   return (
-    <div className="bg-green-500 text-neutral-100">
-      <div className="container mx-auto flex items-center justify-between py-5 text-black text-bold">
+    <div className="bg-[#4B4A67] text-neutral-100">
+      <div className="container mx-auto flex items-center justify-between py-5 text-white text-bold text-xl">
         <Link href="/">
-            <div className="text-bold text-black text-xl">Home</div>
+            <div className="text-bold text-white text-xl">Home</div>
         </Link>
         <div>
           {userId ? (
