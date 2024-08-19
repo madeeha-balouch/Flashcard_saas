@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { SignedOut, SignedIn, UserButton, SignIn } from "@clerk/nextjs";
+import { SignedOut, SignedIn, UserButton, useUser } from '@clerk/clerk-react';
 import {
   AppBar,
   Toolbar,
@@ -17,6 +17,9 @@ import {
 import Container from "@mui/material/Container";
 import { motion } from "framer-motion";
 import getStripe from "./utils/get-stripe";
+
+
+
 const handleSubmit = async () => {
   const checkoutSession = await fetch("/api/checkout_sessions", {
     method: "POST",
@@ -34,7 +37,10 @@ const handleSubmit = async () => {
   }
 };
 const HomePage = () => {
+  const {user} = useUser()
+  const username = user ? user.firstName : '';
   return (
+    
     <Container maxWidth="lg">
       {/* Navigation Bar */}
       <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
@@ -51,6 +57,7 @@ const HomePage = () => {
             </Button>
           </SignedOut>
           <SignedIn>
+          <Typography sx={{mr:2}}> Hello, {username} </Typography>
             <UserButton />
           </SignedIn>
         </Toolbar>
