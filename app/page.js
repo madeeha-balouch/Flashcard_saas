@@ -40,12 +40,12 @@ const HomePage = () => {
   const username = user ? user.firstName : '';
 
   return (
-    <Container maxWidth="lg" sx={{ bgcolor: '#121212', color: '#FFF' }}>
+    <Container maxWidth="100vw" sx={{ bgcolor: '#121212', color: '#FFF' }}>
       {/* Navigation Bar */}
-      <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
+      <AppBar  maxWidth="100%" position="static" sx={{ backgroundColor: '#1E1E1E' }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500' }}>
-            Flashcard SaaS
+            CardCraftr
           </Typography>
           <SignedOut>
             <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
@@ -70,7 +70,7 @@ const HomePage = () => {
           transition={{ duration: 0.8 }}
         >
           <Typography variant="h2" gutterBottom sx={{ color: '#FFA500' }}>
-            Welcome to Flashcard SaaS
+            Welcome to CardCraftr
           </Typography>
           <Typography variant="h5" gutterBottom sx={{ color: '#FFF' }}>
             The easiest way to create flashcards from your text.
@@ -83,14 +83,21 @@ const HomePage = () => {
         >
           <Button
             variant="contained"
-            sx={{ mt: 4, mr: 2, bgcolor: '#FFA500', color: '#121212' }}
+            sx={{ mt: 4, mr: 2, bgcolor: '#FFA500', color: '#121212','&:hover': {
+      bgcolor: '#f0b74f', 
+      borderColor:'#121212',
+    }  }}
             href="/generate"
           >
             Get Started
           </Button>
           <Button
             variant="outlined"
-            sx={{ mt: 4, borderColor: '#FFA500', color: '#FFA500' }}
+            sx={{ mt: 4, borderColor: '#FFA500', color: '#FFA500',
+              '&:hover': {
+                borderColor:'#d18700' , 
+                }
+             }}
           >
             Learn More
           </Button>
@@ -163,7 +170,10 @@ const HomePage = () => {
                   <Button
                     fullWidth
                     variant="contained"
-                    sx={{ bgcolor: '#FFA500', color: '#121212' }}
+                    sx={{ bgcolor: '#FFA500', color: '#121212','&:hover': {
+      bgcolor: '#f0b74f', 
+      borderColor:'#121212',
+    }  }}
                     onClick={handleSubmit}
                   >
                     Start Your Journey

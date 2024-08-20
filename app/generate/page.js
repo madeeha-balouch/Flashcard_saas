@@ -5,10 +5,10 @@ import { collection, getDoc, setDoc, doc, writeBatch } from 'firebase/firestore'
 import {
   Container, TextField, Button, Typography, Box, Grid, Card, CardContent,
   Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions,
-  CardActionArea, CircularProgress
+  CardActionArea, CircularProgress, AppBar, Toolbar,
 } from '@mui/material'
 import { db } from "@/firebase";
-import { useUser } from '@clerk/clerk-react'
+import { SignedOut, SignedIn, UserButton, useUser } from '@clerk/clerk-react';
 import { useRouter } from 'next/navigation'
 
 export default function Generate() {
@@ -22,6 +22,7 @@ export default function Generate() {
   const handleOpenDialog = () => setDialogOpen(true)
   const handleCloseDialog = () => setDialogOpen(false)
   const router = useRouter()
+  const username = user ? user.firstName : '';
 
   const saveFlashcards = async () => {
     if (!setName.trim()) {
@@ -93,8 +94,31 @@ export default function Generate() {
     }))
   }
 
+
   return (
-    <Container maxWidth="md" sx={{ bgcolor: '#121212', color: '#FFF' }}>
+    <Container maxWidth="100vw">
+        <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500' }}>
+            CardCraftr
+          </Typography>
+          <SignedOut>
+            <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
+              Login
+            </Button>
+            <Button color="inherit" href="/sign-up" sx={{ color: '#FFF' }}>
+              Sign Up
+            </Button>
+          </SignedOut>
+          <SignedIn>
+            <Typography sx={{ mr: 2, color: '#FFA500' }}>Hello, {username}</Typography>
+            <UserButton />
+          </SignedIn>
+        </Toolbar>
+      </AppBar>
+
+    <Container maxWidth="md" sx={{ bgcolor: '#121212', color: '#FFF', pb:3}}>
+      
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom color="#FFA500">
           Generate Flashcards
@@ -118,7 +142,10 @@ export default function Generate() {
           color="primary"
           onClick={handleSubmit}
           fullWidth
-          sx={{ bgcolor: '#FFA500', color: '#121212' }}
+          sx={{ bgcolor: '#FFA500', color: '#121212','&:hover': {
+      bgcolor: '#f0b74f', 
+      borderColor:'#121212',
+    }  }}
         >
           Generate Flashcards
         </Button>
@@ -197,7 +224,10 @@ export default function Generate() {
 
       {flashcards.length > 0 && !loading && (
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-          <Button variant="contained" color="primary" onClick={handleOpenDialog} sx={{ bgcolor: '#FFA500', color: '#121212' }}>
+          <Button variant="contained" color="primary" onClick={handleOpenDialog} sx={{ bgcolor: '#FFA500', color: '#121212','&:hover': {
+      bgcolor: '#f0b74f', 
+      borderColor:'#121212',
+    }  }}>
             Save Flashcards
           </Button>
         </Box>
@@ -225,12 +255,18 @@ export default function Generate() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} sx={{ color: '#FFA500' }}>Cancel</Button>
-          <Button onClick={saveFlashcards} color="primary" sx={{ bgcolor: '#FFA500', color: '#121212' }}>
+          <Button onClick={handleCloseDialog} sx={{ color: '#FFA500','&:hover': {
+      borderColor:'orange',
+    }  }}>Cancel</Button>
+          <Button onClick={saveFlashcards} color="primary" sx={{ bgcolor: '#FFA500', color: '#121212','&:hover': {
+      bgcolor: '#f0b74f', 
+      borderColor:'#121212',
+    }  }}>
             Save
           </Button>
         </DialogActions>
       </Dialog>
+    </Container>
     </Container>
   )
 }
