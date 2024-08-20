@@ -50,8 +50,10 @@ export default function Flashcard() {
         <Container maxWidth="100%">
         <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500' }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500', href:"/"}}>
+          <a href='/' style={{ textDecoration: 'none' }}>
             CardCraftr
+          </a>
           </Typography>
           <SignedOut>
             <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>

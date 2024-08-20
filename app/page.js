@@ -17,8 +17,16 @@ import {
 import Container from "@mui/material/Container";
 import { motion } from "framer-motion";
 import getStripe from "./utils/get-stripe";
+import { useRouter } from 'next/navigation';
 
+const HomePage = () => {
+  const { user } = useUser();
+  const username = user ? user.firstName : '';
+  const router = useRouter()
 const handleSubmit = async () => {
+  if (!user){
+    router.push(`/sign-in`)
+  }
   const checkoutSession = await fetch("/api/checkout_sessions", {
     method: "POST",
     headers: { origin: "http://localhost:3001" },
@@ -35,17 +43,15 @@ const handleSubmit = async () => {
   }
 };
 
-const HomePage = () => {
-  const { user } = useUser();
-  const username = user ? user.firstName : '';
-
   return (
     <Container maxWidth="100vw" sx={{ bgcolor: '#121212', color: '#FFF' }}>
       {/* Navigation Bar */}
       <AppBar  maxWidth="100%" position="static" sx={{ backgroundColor: '#1E1E1E' }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500' }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500', href:"/"}}>
+          <a href='/' style={{ textDecoration: 'none' }}>
             CardCraftr
+          </a>
           </Typography>
           <SignedOut>
             <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
@@ -163,7 +169,7 @@ const HomePage = () => {
                     Ultimate Plan - $10/month
                   </Typography>
                   <Typography sx={{ mt: 2 }}>
-                    Get full access to our flashcard system: unlimited flashcards, AI-powered creation, and secure cloud storage.
+                    Get full access to CardCraftr: unlimited flashcards, AI-powered creation, and secure cloud storage.
                   </Typography>
                 </CardContent>
                 <CardActions>

@@ -2,7 +2,7 @@
 import { collection,doc,getDoc,setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import {useState, useEffect} from 'react'
-import { SignedIn, SignedOut,UserButton,useUser,Button} from '@clerk/clerk-react'
+import { SignedIn, SignedOut,UserButton,useUser} from '@clerk/clerk-react'
 import {Container,Typography,Grid, Card, CardContent, CardActionArea, AppBar, Toolbar} from '@mui/material'
 import {db} from "@/firebase";
 
@@ -39,8 +39,10 @@ const handleCardClick = (id) => {
     <Container maxWidth="100vw">
         <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500' }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500', href:"/"}}>
+          <a href='/' style={{ textDecoration: 'none' }}>
             CardCraftr
+          </a>
           </Typography>
           <SignedOut>
             <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>

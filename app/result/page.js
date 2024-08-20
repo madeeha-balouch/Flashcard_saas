@@ -1,7 +1,8 @@
 "use client";
 const { useSearchParams, useRouter } = require("next/navigation");
 const { useState, useEffect } = require("react");
-import { Container, Typography, Box, CircularProgress } from "@mui/material";
+import { Container, Typography, Box, CircularProgress,AppBar,Toolbar,Button } from "@mui/material";
+import { SignedOut, SignedIn, UserButton, useUser} from '@clerk/clerk-react';
 
 const ResultPage = () => {
   const [loading, setLoading] = useState(true);
@@ -10,6 +11,8 @@ const ResultPage = () => {
 
   const searchParams = useSearchParams();
   const router = useRouter();
+  const {user} = useUser();
+  const username = user ? user.firstName : '';
 
   const session_id = searchParams.get("session_id");
 
@@ -37,6 +40,28 @@ const ResultPage = () => {
 
   if (loading) {
     return (
+      <Container maxWidth="100%">
+      <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
+      <Toolbar>
+      <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500', href:"/"}}>
+        <a href='/' style={{ textDecoration: 'none' }}>
+          CardCraftr
+        </a>
+        </Typography>
+        <SignedOut>
+          <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
+            Login
+          </Button>
+          <Button color="inherit" href="/sign-up" sx={{ color: '#FFF' }}>
+            Sign Up
+          </Button>
+        </SignedOut>
+        <SignedIn>
+          <Typography sx={{ mr: 2, color: '#FFA500' }}>Hello, {username}</Typography>
+          <UserButton />
+        </SignedIn>
+      </Toolbar>
+    </AppBar>
       <Container
         maxWidth="sm"
         sx={{
@@ -53,11 +78,34 @@ const ResultPage = () => {
           Loading...
         </Typography>
       </Container>
+      </Container>
     );
   }
 
   if (error) {
     return (
+      <Container maxWidth="100%">
+      <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
+      <Toolbar>
+      <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500', href:"/"}}>
+        <a href='/' style={{ textDecoration: 'none' }}>
+          CardCraftr
+        </a>
+        </Typography>
+        <SignedOut>
+          <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
+            Login
+          </Button>
+          <Button color="inherit" href="/sign-up" sx={{ color: '#FFF' }}>
+            Sign Up
+          </Button>
+        </SignedOut>
+        <SignedIn>
+          <Typography sx={{ mr: 2, color: '#FFA500' }}>Hello, {username}</Typography>
+          <UserButton />
+        </SignedIn>
+      </Toolbar>
+    </AppBar>
       <Container
         maxWidth="sm"
         sx={{
@@ -73,10 +121,33 @@ const ResultPage = () => {
           {error}
         </Typography>
       </Container>
+      </Container>
     );
   }
 
   return (
+    <Container maxWidth="100%">
+    <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
+    <Toolbar>
+    <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500', href:"/"}}>
+      <a href='/' style={{ textDecoration: 'none' }}>
+        CardCraftr
+      </a>
+      </Typography>
+      <SignedOut>
+        <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
+          Login
+        </Button>
+        <Button color="inherit" href="/sign-up" sx={{ color: '#FFF' }}>
+          Sign Up
+        </Button>
+      </SignedOut>
+      <SignedIn>
+        <Typography sx={{ mr: 2, color: '#FFA500' }}>Hello, {username}</Typography>
+        <UserButton />
+      </SignedIn>
+    </Toolbar>
+  </AppBar>
     <Container
       maxWidth="sm"
       sx={{
@@ -115,6 +186,7 @@ const ResultPage = () => {
           </Box>
         </>
       )}
+    </Container>
     </Container>
   );
 };
