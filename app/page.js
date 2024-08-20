@@ -18,8 +18,6 @@ import Container from "@mui/material/Container";
 import { motion } from "framer-motion";
 import getStripe from "./utils/get-stripe";
 
-
-
 const handleSubmit = async () => {
   const checkoutSession = await fetch("/api/checkout_sessions", {
     method: "POST",
@@ -36,28 +34,29 @@ const handleSubmit = async () => {
     console.warn(error.message);
   }
 };
+
 const HomePage = () => {
-  const {user} = useUser()
+  const { user } = useUser();
   const username = user ? user.firstName : '';
+
   return (
-    
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ bgcolor: '#121212', color: '#FFF' }}>
       {/* Navigation Bar */}
-      <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+      <AppBar position="static" sx={{ backgroundColor: '#1E1E1E' }}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFA500' }}>
             Flashcard SaaS
           </Typography>
           <SignedOut>
-            <Button color="inherit" href="/sign-in">
+            <Button color="inherit" href="/sign-in" sx={{ color: '#FFF' }}>
               Login
             </Button>
-            <Button color="inherit" href="/sign-up">
+            <Button color="inherit" href="/sign-up" sx={{ color: '#FFF' }}>
               Sign Up
             </Button>
           </SignedOut>
           <SignedIn>
-          <Typography sx={{mr:2}}> Hello, {username} </Typography>
+            <Typography sx={{ mr: 2, color: '#FFA500' }}>Hello, {username}</Typography>
             <UserButton />
           </SignedIn>
         </Toolbar>
@@ -70,10 +69,10 @@ const HomePage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h2" gutterBottom sx={{ color: '#FFA500' }}>
             Welcome to Flashcard SaaS
           </Typography>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h5" gutterBottom sx={{ color: '#FFF' }}>
             The easiest way to create flashcards from your text.
           </Typography>
         </motion.div>
@@ -84,13 +83,15 @@ const HomePage = () => {
         >
           <Button
             variant="contained"
-            color="primary"
-            sx={{ mt: 4, mr: 2 }}
+            sx={{ mt: 4, mr: 2, bgcolor: '#FFA500', color: '#121212' }}
             href="/generate"
           >
             Get Started
           </Button>
-          <Button variant="outlined" color="primary" sx={{ mt: 4 }}>
+          <Button
+            variant="outlined"
+            sx={{ mt: 4, borderColor: '#FFA500', color: '#FFA500' }}
+          >
             Learn More
           </Button>
         </motion.div>
@@ -98,27 +99,26 @@ const HomePage = () => {
 
       {/* Features Section */}
       <Box sx={{ my: 8 }}>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom sx={{ color: '#FFA500' }}>
           Features
         </Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
             <Grow in>
-              <Paper elevation={4} sx={{ padding: 4 }}>
-                <Typography variant="h6" gutterBottom>
+              <Paper elevation={4} sx={{ padding: 4, bgcolor: '#1E1E1E', color: '#FFF' }}>
+                <Typography variant="h6" gutterBottom sx={{ color: '#FFA500' }}>
                   Easy to Use
                 </Typography>
                 <Typography>
-                  Intuitive interface designed for effortless flashcard
-                  creation.
+                  Intuitive interface designed for effortless flashcard creation.
                 </Typography>
               </Paper>
             </Grow>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Grow in timeout={1000}>
-              <Paper elevation={4} sx={{ padding: 4 }}>
-                <Typography variant="h6" gutterBottom>
+              <Paper elevation={4} sx={{ padding: 4, bgcolor: '#1E1E1E', color: '#FFF' }}>
+                <Typography variant="h6" gutterBottom sx={{ color: '#FFA500' }}>
                   AI-Powered Flashcards
                 </Typography>
                 <Typography>
@@ -129,8 +129,8 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Grow in timeout={1500}>
-              <Paper elevation={4} sx={{ padding: 4 }}>
-                <Typography variant="h6" gutterBottom>
+              <Paper elevation={4} sx={{ padding: 4, bgcolor: '#1E1E1E', color: '#FFF' }}>
+                <Typography variant="h6" gutterBottom sx={{ color: '#FFA500' }}>
                   Cloud Storage
                 </Typography>
                 <Typography>
@@ -144,65 +144,26 @@ const HomePage = () => {
 
       {/* Pricing Section */}
       <Box sx={{ my: 8, textAlign: "center" }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{ color: '#FFA500' }}>
           Pricing
         </Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
             <motion.div whileHover={{ scale: 1.05 }}>
-              {/* <Card raised>
+              <Card raised sx={{ bgcolor: '#1E1E1E', color: '#FFF' }}>
                 <CardContent>
-                  <Typography variant="h5" component="div">
-                    Basic Plan - $5/month
-                  </Typography>
-                  <Typography sx={{ mt: 2 }}>
-                    Access to basic features and limited storage.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button fullWidth variant="contained" onClick={handleSubmit}>
-                    Choose Basic
-                  </Button>
-                </CardActions>
-              </Card>
-            </motion.div>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-            <motion.div whileHover={{ scale: 1.05 }}>
-              <Card raised>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    Pro Plan - $10/month
-                  </Typography>
-                  <Typography sx={{ mt: 2 }}>
-                    Unlimited flashcards and additional features.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button fullWidth variant="contained" onClick={handleSubmit}>
-                    Choose Pro
-                  </Button>
-                </CardActions>
-              </Card> */}
-
-              <Card raised>
-                <CardContent>
-                  <Typography variant="h5" component="div">
+                  <Typography variant="h5" component="div" sx={{ color: '#FFA500' }}>
                     Ultimate Plan - $10/month
                   </Typography>
                   <Typography sx={{ mt: 2 }}>
-                    {/* Everything you need: create, store, and access unlimited
-                    flashcards with AI support and full cloud backup. */}
-                    Get full access to our flashcard system: unlimited
-                    flashcards, AI-powered creation, and secure cloud storage.
+                    Get full access to our flashcard system: unlimited flashcards, AI-powered creation, and secure cloud storage.
                   </Typography>
                 </CardContent>
                 <CardActions>
                   <Button
                     fullWidth
                     variant="contained"
-                    color="primary"
+                    sx={{ bgcolor: '#FFA500', color: '#121212' }}
                     onClick={handleSubmit}
                   >
                     Start Your Journey
